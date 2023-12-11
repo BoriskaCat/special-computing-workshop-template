@@ -53,7 +53,7 @@ public class CustomQueue implements Queue<Object> {
 
   @Override
   public boolean remove(Object o) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("Method 'remove' is undefined");
   }
 
   @Override
@@ -66,7 +66,7 @@ public class CustomQueue implements Queue<Object> {
 
   @Override
   public boolean removeAll(@Nonnull Collection c) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("Method 'removeAll' is undefined");
   }
 
   @Override
@@ -76,7 +76,7 @@ public class CustomQueue implements Queue<Object> {
 
   @Override
   public boolean containsAll(@Nonnull Collection c) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException("Method 'addAll' is undefined");
+    throw new UnsupportedOperationException("Method 'containsAll' is undefined");
   }
 
   @Override
@@ -100,13 +100,13 @@ public class CustomQueue implements Queue<Object> {
   @Override
   @Nonnull
   public Object[] toArray() throws UnsupportedOperationException {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("Method 'toArray' is undefined");
   }
 
   @Override
   @Nonnull
   public <T> T[] toArray(@Nonnull T[] a) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("Method 'toArray' is undefined");
   }
 
   @Override
@@ -117,11 +117,11 @@ public class CustomQueue implements Queue<Object> {
 
   @Override
   public void clear() throws UnsupportedOperationException {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("Method 'clear' is undefined");
   }
 
   @Override
   public boolean retainAll(@Nonnull Collection c) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException("Method 'retainAll' is undefined");
   }
 }
