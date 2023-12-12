@@ -14,8 +14,6 @@ import java.nio.file.Path;
  */
 public class Task3 {
 
-  private static BufferedWriter buffer;
-
   /**
    * Checking the validity of arguments:
    *   1) Directory exists.
@@ -42,24 +40,25 @@ public class Task3 {
   /**
    * Writes a tree from pathToDirectory.
    */
-  public static void getStructureTree(String pathToDirectory)
+  public static void getStructureTree(String pathToDirectory, BufferedWriter localBuffer)
       throws IOException {
-    fileTreeBuilder(pathToDirectory, 0);
+    fileTreeBuilder(pathToDirectory, 0, localBuffer);
   }
 
   /**
    * Main component of getStructureTree function.
    */
-  public static void fileTreeBuilder(String pathToDirectory, int treeDepth)
+  public static void fileTreeBuilder(String pathToDirectory, int treeDepth,
+                                                BufferedWriter localBuffer)
       throws IOException {
     File[] files = filesByDirectory(pathToDirectory);
     for (File f : files) {
-      indentation(treeDepth);
+      indentation(treeDepth, localBuffer);
       if (f.isDirectory()) {
-        buffer.write(f.getName() + "\n");
-        fileTreeBuilder(f.getAbsolutePath(), treeDepth + 1);
+        localBuffer.write(f.getName() + "\n");
+        fileTreeBuilder(f.getAbsolutePath(), treeDepth + 1, localBuffer);
       } else {
-        buffer.write(f.getName() + "\n");
+        localBuffer.write(f.getName() + "\n");
       }
     }
   }
@@ -76,9 +75,10 @@ public class Task3 {
   /**
    * Adds indentation.
    */
-  public static void indentation(int value) throws IOException {
+  public static void indentation(int value, BufferedWriter localBuffer)
+      throws IOException {
     for (int i = 0; i < value; i++) {
-      buffer.write("  ");
+      localBuffer.write("  ");
     }
   }
 
@@ -90,10 +90,9 @@ public class Task3 {
     areArgsCorrect(args);
 
     Path result = Files.createFile(Path.of(args[1]).toAbsolutePath());
-    buffer = Files.newBufferedWriter(result);
+    BufferedWriter localBuffer = Files.newBufferedWriter(result);
 
-    getStructureTree(args[0]);
-
-    buffer.close();
+    getStructureTree(args[0], localBuffer);
+    localBuffer.close();
   }
 }
