@@ -18,28 +18,32 @@ import org.junit.jupiter.api.Test;
  */
 class Task3Test {
 
+  private boolean stringComparator(String string1, String string2) {
+    return string1.equals(string2);
+  }
+
   @Test
-  void illegalArgumentTest() {
+  void areArgsCorrectTest_invalidNumber() {
     String[] args = {"..//"};
-    assertThrows(IllegalArgumentException.class, () -> Task3.main(args));
+    assertThrows(IllegalArgumentException.class, () -> Task3.areArgsCorrect(args));
   }
 
   @Test
-  void fileNotFoundTest() {
+  void areArgsCorrectTest_invalidNumber_nonExistentFile() {
     String[] args = {"non-existent directory/", "recordingFile.txt"};
-    assertThrows(FileNotFoundException.class, () -> Task3.main(args));
+    assertThrows(FileNotFoundException.class, () -> Task3.areArgsCorrect(args));
   }
 
   @Test
-  void fileSystemTest() {
+  void areArgsCorrectTest_notDirectory() {
     String[] args = {"..//", "..//"};
-    assertThrows(FileSystemException.class, () -> Task3.main(args));
+    assertThrows(FileSystemException.class, () -> Task3.areArgsCorrect(args));
   }
 
   @Test
-  void fileAlreadyExistsTest() {
+  void areArgsCorrectTest_existingFile() {
     String[] args = {"..//", "src/test/CorrectStructure.txt"};
-    assertThrows(FileAlreadyExistsException.class, () -> Task3.main(args));
+    assertThrows(FileAlreadyExistsException.class, () -> Task3.areArgsCorrect(args));
   }
 
   @Test
@@ -56,7 +60,7 @@ class Task3Test {
       String recorderLine = recorder.readLine();
       String respondentLine = respondent.readLine();
       while (recorderLine != null && respondentLine != null) {
-        if (!respondentLine.equals(recorderLine)) {
+        if (!stringComparator(recorderLine, respondentLine)) {
           areEqual = false;
         }
         recorderLine = recorder.readLine();
