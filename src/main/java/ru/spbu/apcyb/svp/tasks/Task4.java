@@ -40,18 +40,18 @@ public class Task4 {
    * Reading data from a file.
    */
   private static List<Double> extractInputData(Path directory) {
+    List<Double> values = new ArrayList<>();
 
     try (Scanner input = new Scanner(directory)) {
-      List<Double> values = new ArrayList<>();
-
       while (input.hasNextLine()) {
         values.add(Double.valueOf(input.nextLine()));
       }
-      return values;
 
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      logger.info("An error while reading the file: " + e.getMessage());
     }
+
+    return values;
   }
 
   private static void writeToFile(Path directory, List<Double> data) {
@@ -61,7 +61,7 @@ public class Task4 {
       }
 
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      logger.info("An error while recording the file: " + e.getMessage());
     }
   }
 
@@ -142,7 +142,7 @@ public class Task4 {
       logger.log(Level.INFO, "Time in multi thread mode: {0} ms",
           Duration.between(startTimeMultiMode, endTimeMultiMode).toMillis());
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new RuntimeException(e.getMessage());
     }
   }
 
