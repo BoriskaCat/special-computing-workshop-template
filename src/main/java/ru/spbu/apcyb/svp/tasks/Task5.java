@@ -15,6 +15,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,6 +23,8 @@ import java.util.stream.Stream;
  * Task 5.
  */
 public class Task5 {
+  private static final Logger logger = Logger.getLogger(Task5.class.getName());
+
   /**
    * Checking the validity of arguments:
    *   1) Calculation data file.
@@ -49,7 +52,7 @@ public class Task5 {
         }
 
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.info("An error while recording the file: " + e.getMessage());
       }
     }, executorService);
   }
@@ -92,8 +95,7 @@ public class Task5 {
       }
 
     } catch (IOException e) {
-      throw new RuntimeException(e);
-
+      logger.info("An error while recording the file: " + e.getMessage());
     } finally {
       futures.forEach(CompletableFuture::join);
       executorService.shutdown();
@@ -129,7 +131,10 @@ public class Task5 {
 
       writeToFile(Path.of(args[1]), words);
     } catch (Exception e) {
-      e.printStackTrace();
+      String stackTrace = Arrays.stream(e.getStackTrace())
+          .map(StackTraceElement::toString)
+          .collect(Collectors.joining("\n"));
+      logger.info("The thread was interrupted at:\n" + stackTrace);
     }
   }
 }
