@@ -1,0 +1,5 @@
+areena 1
+luonto 1
+nosturi 1
+sarjat 1
+suo 2
